@@ -27,9 +27,6 @@ $dates = show_guides_audit($_GET['id']);
         <div class="tab-pane fade " id ="list-one">
         <div class="card">
         <h5 class="card-header">審核文件(<?php echo $_GET['id'];?>號導遊)</h5>
-            
-            
-            
             <div class="card-body">
             
                 <h5 class="card-title ">照片區</h5><hr>

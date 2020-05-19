@@ -1,6 +1,6 @@
 <?php
 @session_start();
-
+date_default_timezone_set("Asia/Taipei");
 function get_guides()
 {
     $data =array();
@@ -214,6 +214,149 @@ function region($region)  //依地區找導遊
                 $data[] = $row;
             }
         }
+    }
+
+    else
+    {
+        echo "{$sql}語法請求失敗 <br>" . mysqli_error($_SESSION['link']);
+    }
+    return $data ;
+}
+
+function get_travels_total()//判斷今天營收
+{
+    $data =null;
+    $date1 = date('Y-m-d 00:00:00');
+    $date2 = date('Y-m-d 23:59:59');
+    $sql = "SELECT sum(total) as total FROM `travels` where `paytime`  between '$date1'
+    and '$date2'
+     " ;
+
+    $query = mysqli_query($_SESSION['link'],$sql);
+
+    if($query)
+    {
+        if(mysqli_num_rows($query)==1)
+        {
+            $data =mysqli_fetch_assoc($query);
+        }
+        
+        
+    }
+
+    else
+    {
+        echo "{$sql}語法請求失敗 <br>" . mysqli_error($_SESSION['link']);
+    }
+    return $data ;
+}
+
+function get_users_searchfor_member()//判斷會員數
+{
+    $data =null;
+    $sql = "SELECT count(id) as members_total FROM `users` where `type` = '會員' " ;
+
+    $query = mysqli_query($_SESSION['link'],$sql);
+
+    if($query)
+    {
+        if(mysqli_num_rows($query)==1)
+        {
+            $data =mysqli_fetch_assoc($query);
+        }
+    }
+
+    else
+    {
+        echo "{$sql}語法請求失敗 <br>" . mysqli_error($_SESSION['link']);
+    }
+    return $data ;
+}
+
+function get_guides_total()//判斷導遊數
+{
+    $data =null;
+    $sql = "SELECT count(id) as guides_total FROM `guides` where `pass` =1" ;
+
+    $query = mysqli_query($_SESSION['link'],$sql);
+
+    if($query)
+    {
+        if(mysqli_num_rows($query)==1)
+        {
+            $data =mysqli_fetch_assoc($query);
+        }
+    }
+
+    else
+    {
+        echo "{$sql}語法請求失敗 <br>" . mysqli_error($_SESSION['link']);
+    }
+    return $data ;
+}
+
+function get_travels_order_total()//判斷訂單數
+{
+    $data =null;
+    $date = date('Y-m-d');//今天日期
+    $sql = "SELECT count(id) as travels_order_total FROM `travels` where '$date' between `start` and `end` " ;
+    $query = mysqli_query($_SESSION['link'],$sql);
+
+    if($query)
+    {
+        if(mysqli_num_rows($query)==1)
+        {
+            $data =mysqli_fetch_assoc($query);
+        }
+    }
+
+    else
+    {
+        echo "{$sql}語法請求失敗 <br>" . mysqli_error($_SESSION['link']);
+    }
+    return $data ;
+}
+
+function get_travels_order_Month($paytime)//營收表單
+{
+    $data =array();
+    $sql = "SELECT `*`,sum(`total`) as 營業額 ,count(*) as 訂單數, ROUND(sum(total*0.9), 0) as 淨利率 FROM `travels`   where `paytime` between '2020/$paytime/01' and '2020/$paytime/31' Group by paytime " ;
+    $query = mysqli_query($_SESSION['link'],$sql);
+
+    if($query)
+    {
+        if(mysqli_num_rows($query)>0)
+        {
+            while($row = mysqli_fetch_assoc($query))
+            {
+                $data[] = $row;
+            }
+        }
+    }
+    else
+    {
+        echo "{$sql}語法請求失敗 <br>" . mysqli_error($_SESSION['link']);
+    }
+    return $data ;
+}
+
+function get_travels_total_month($paytime)//判斷今天營收
+{
+    $data =null;
+    $sql = "SELECT sum(total) as 營業額 ,  ROUND(sum(total*0.9), 0) as 淨利率 FROM `travels` where `paytime`  between '2020/$paytime/01' and '2020/$paytime/31'
+    
+     " ;
+
+    $query = mysqli_query($_SESSION['link'],$sql);
+
+    if($query)
+    {
+        if(mysqli_num_rows($query)==1)
+        {
+            $data =mysqli_fetch_assoc($query);
+        }
+        
+        
     }
 
     else

@@ -80,7 +80,7 @@ $pass0 = get_pass0();
             <td><img style="width:100px;height:100px" src="<?php echo $i['photo'] ; ?>" alt=""></td>
             <td><?php echo $i['id_card'] ; ?></td>
             <td><?php echo $i['created_at'] ; ?></td>
-            <td><a class="btn btn-outline-danger" href="b1v.php?id=<?php echo $i['id'];?>" role="button">審核</a></td>
+            <td><a class="btn btn-outline-danger" href="b1c.php?id=<?php echo $i['id'];?>" role="button">審核</a></td>
             </tr>
 
                  <?php endforeach; ?>

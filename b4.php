@@ -95,7 +95,6 @@ $dates = region($_GET['region']);
                         <th scope="col">花費</th>
                         <th scope="col">訂房</th>
                         <th scope="col">交通</th>
-                       
                         <th scope="col">開始</th>
                         <th scope="col">結束</th>
                         <th scope="col">地圖</th>
