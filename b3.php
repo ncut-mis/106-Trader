@@ -45,7 +45,7 @@ require_once 'php/sql.php';
                         <div class="card-body d-flex  align-items-center">
                             <img src="pic/member.png" width="60"  class ="img-fluid mr-3 h-75 " alt="">
                                 <div class="text-center w-100"> 
-                                    <h5><b>會員數</b></h5>
+                                    <h5><b>所有會員數</b></h5>
                                     <h2><?php if($date2['members_total']==null) echo 0;
                                     else echo $date2['members_total'] ?>
                                     </h2>
@@ -61,7 +61,7 @@ require_once 'php/sql.php';
                         <div class="card-body d-flex  align-items-center">
                             <img src="pic/guide.png" width="60"  class ="img-fluid mr-3 h-75 " alt="">
                                 <div class="text-center w-100"> 
-                                    <h5><b>導遊數</b></h5>
+                                    <h5><b>所有導遊數</b></h5>
                                     <h2><?php if($date3['guides_total']==null) echo 0;
                                     else echo $date3['guides_total'] ?>
                                     </h2>

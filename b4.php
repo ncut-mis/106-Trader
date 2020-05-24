@@ -52,37 +52,7 @@ $dates = region($_GET['region']);
                 </div>
             </div>
 
-            <script type="text/javascript">
-                $(document).ready(function () {
-                   var i = $('.dropdown-menu  a').click(function () { 
-                        var text = $(this).text();
-                        $(".dropdown-menu  a").attr("href","?region="+text);
-                       /* $.ajax({
-                            type: "GET",
-                            url: "php/b4_dropdown.php",
-                            data: '',
-                            dataType: 'html',
-                            error:function(){alert('Ajax request 發生錯誤');},
-                            success: function(res){alert('Ajax success!');}
-                           
-                            
-                        });*/
-
-                        
-                        
-                        
-                    });
-
-                    $('table #get_guide').click(function () { 
-                       
-                        
-                        
-                    });
-
-                });
-
-               
-            </script>
+           
             
             <div class="col-12">
            
@@ -97,7 +67,7 @@ $dates = region($_GET['region']);
                         <th scope="col">交通</th>
                         <th scope="col">開始</th>
                         <th scope="col">結束</th>
-                        <th scope="col">地圖</th>
+
                         
                         </tr>
                     </thead>
@@ -111,10 +81,12 @@ $dates = region($_GET['region']);
                 <td><?php echo $Schedules['cost'] ; ?></td>
                 <td><?php echo $Schedules['room'] ; ?></td>
                 <td><?php echo $Schedules['traffic'] ; ?></td>
-                
                 <td><?php echo $Schedules['start'] ; ?></td>
                 <td><?php echo $Schedules['end'] ; ?></td>
-                <td><a href="http://www.google.com.tw/maps/search/<?php echo $Schedules['region'] ; ?>" target="_blank"><img width ="50" height="50" src="pic/google.jpg" alt="圖片壞了"></a></td>
+                
+
+
+                </td>
                 </tr>
                 <?php endforeach; ?>
                     </tbody>
@@ -132,9 +104,62 @@ $dates = region($_GET['region']);
 
 
 
+<!-- Modal -->
+<div class="modal fade" id="googlemapModal" tabindex="-1" role="dialog" aria-labelledby="googlemapModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56598.708898523226!2d120.70294780760396!3d24.134056669347725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x123d10408eea9124!2z6YiK6Kqg5pW45L2N6KGM6Yq3KOiCoSnlhazlj7ggfCBHb29nbGXmlbTlkIjooYzpirfpoJjlsI7lsIjlrrY!5e0!3m2!1szh-TW!2stw!4v1589990635894!5m2!1szh-TW!2stw" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
+
+
+
+<script type="text/javascript">
+
+                $(document).ready(function () {
+                   var i = $('.dropdown-menu  a').click(function () { 
+                        var text = $(this).text();
+                        $(".dropdown-menu  a").attr("href","?region="+text);
+                       /* $.ajax({
+                            type: "GET",
+                            url: "php/b4_dropdown.php",
+                            data: '',
+                            dataType: 'html',
+                            error:function(){alert('Ajax request 發生錯誤');},
+                            success: function(res){alert('Ajax success!');}
+                           
+                            
+                        });*/
+                    });
+
+                    $('#googlemapModal').on('show.bs.modal', function (event) {
+                        var button = $(event.relatedTarget) 
+                        var recipient = button.data('title') 
+                        //var t = button.data("content")
+                        var modal = $(this)
+                        modal.find('.modal-title').text(recipient)
+                        //modal.find('.modal-body').text("<iframe"+t+"</iframe>")
+                    })
+
+                });
+
+               
+            </script>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -20,6 +20,9 @@ $file_name =  basename($file_path);
     case 'b2.php':
     $index = 2;
     break;
+    case 'b2a.php':
+      $index = 2;
+      break;
     case 'b3.php':
     $index = 3;
     break;

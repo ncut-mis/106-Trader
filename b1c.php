@@ -3,6 +3,7 @@ require_once 'php/db_connection.php';
 require_once 'php/sql.php';
 $dates1 = show_guides_audit($_GET['id']);
 $dates2 = show_guides($_GET['id']);
+print_r($dates1);
 ?>
 
 <!DOCTYPE html>
@@ -18,8 +19,8 @@ $dates2 = show_guides($_GET['id']);
 <body>
 <?php require_once 'php/menu.php';?>
 
-<?php foreach ($dates1 as $guide_audit):endforeach?>
-<?php foreach ($dates2 as $guide):endforeach?>
+
+<?php foreach ($dates2 as $guide):endforeach;?>
 
                 
     <div class="container">
@@ -41,25 +42,26 @@ $dates2 = show_guides($_GET['id']);
                         <div class="col-12 col-sm-6 text-center  " id="license">
                             <h4 class="text-center">旅遊證照</h4>
                             <?php if(!empty($dates1))
-                            foreach ($dates1 as $guide):?>
-                            <img width="500"  class="img-fluid h-75 modal-body" src="<?php echo  $guide['license'];?>" alt="">
-                            <?php endforeach?>
+                            foreach ($dates1 as $guide_audit):?>
+                            <?php echo  $guide_audit['license'];?>
+                            <img width="500"  class="img-fluid h-75 " src="<?php echo $guide_audit['license'];?>" alt="此為導遊沒放照片">
+                            <?php endforeach;?>
                         </div>
                         <div class="col-12 col-sm-6 text-center  ">
                             <h4 class="text-left text-center">旅遊經驗&動機</h4>
                             <?php if(!empty($dates1))
-                            foreach ($dates1 as $guide):?>
-                            <p class="text-left "><?php echo $guide['motive'];?></p>
+                            foreach ($dates1 as $guide_audit):?>
+                            <p class="text-left "><?php echo $guide_audit['motive'];?></p>
                             <?php endforeach?>
                            
                         </div>
                         <div class="col-12 offset-sm-3 col-sm-6 offset-md-3 text-center  ">
                             <h4 class="text-left text-center">旅遊影片</h4>
                             <?php if(!empty($dates1))
-                            foreach ($dates1 as $guide):
-                            if(!empty($guide['video'])){?>
+                            foreach ($dates1 as $guide_audit):
+                            if(!empty($guide_audit['video'])){?>
                             <div  class="mx-auto row d-flex justify-content-center card-text embed-responsive embed-responsive-16by9 " >
-                            <iframe  class="embed-responsive-item" src="<?php echo $guide['video'] ;?>" allowfullscreen></iframe>
+                            <iframe  class="embed-responsive-item" src="<?php echo $guide_audit['video'] ;?>" allowfullscreen></iframe>
                             </div>
                              <?php } endforeach; ?>  
                         </div>
@@ -81,7 +83,14 @@ $dates2 = show_guides($_GET['id']);
         </div>
 
         
-
+        <h5 class="card-title">影片區</h5><hr>
+                <?php if(!empty($dates2))
+                     foreach ($dates2 as $guide_audit):
+                     if(!empty($guide['video'])){?>
+                        <div  class="mx-auto row d-flex justify-content-center card-text embed-responsive embed-responsive-16by9 " >
+                        <iframe  class="embed-responsive-item" src="<?php echo $guide_audit['video'] ;?>" allowfullscreen></iframe>
+                        </div>
+                <?php } endforeach; ?>
 
 
 
