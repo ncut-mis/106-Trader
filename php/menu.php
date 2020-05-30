@@ -29,6 +29,12 @@ $file_name =  basename($file_path);
     case 'b4.php':
     $index = 4;
     break;
+    case 'b4a.php':
+      $index = 4;
+      break;
+      case 'b4b.php':
+        $index = 4;
+        break;
 
 }
 ?>
@@ -54,7 +60,7 @@ $file_name =  basename($file_path);
         <a class="nav-link <?php  echo ($index==3)?"active":""; ?>" href="b3.php?paytime=01" >營運統計</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <?php  echo ($index==4)?"active":""; ?>" href="b4.php?region=" >內部監控</a>
+        <a class="nav-link <?php  echo ($index==4)?"active":""; ?>" href="b4.php?date=<?php echo date("Y/m/d");?>" >營運監控</a>
       </li>
     </ul>
   </div>

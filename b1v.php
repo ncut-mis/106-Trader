@@ -1,17 +1,15 @@
 <?php
 require_once 'php/db_connection.php';
 require_once 'php/sql.php';
-$dates1 = show_guides($_GET['id']);
-$dates2 = show_guides_audit($_GET['id']);
-$dates3 = show_guides_article($_GET['id']);
-?>
+$dates1 = show_guides($_GET['user_id']);
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第<?php echo $_GET['id'];?>位導遊資訊</title>
+    <title>第<?php echo $_GET['user_id'];?>位導遊資訊</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
@@ -19,19 +17,19 @@ $dates3 = show_guides_article($_GET['id']);
 <?php require_once 'php/menu.php'?>
 
 <?php foreach($dates1 as $guide): endforeach;?>
-<?php foreach($dates2 as $guide_audit): endforeach;?>
+
     <div class="container-fluit">
         <div class="row d-flex justify-content-center ">
             <div class=" col-10 col-xs-12">
         <div class="list-group list-group-horizontal ">
-             <a href="#list-one" class="list-group-item  " data-toggle="list"><h3 >基本資料</h3></a>
-             <a href="#list-two" class="list-group-item  " data-toggle="list"><h3 >旅遊文章</h3></a>
+             <a href="#list-one" class="list-group-item  " data-toggle="list"><h3>基本資料</h3></a>
+             <a href="#list-two" class="list-group-item  " data-toggle="list"><h3>帶團經驗</h3></a>
          </div>
         <div class="tab-content" >
 
         <div class="tab-pane fade " id ="list-one">
         <div class="card">
-        <h5 class="card-header">(<?php echo $_GET['id'];?>號導遊)</h5>
+        <h5 class="card-header">(<?php echo $_GET['user_id'];?>號導遊)</h5>
             <div class="card-body">
                 <div class="row  justify-content-center ">
                         <img width="125"  class="img-fluid rounded-circle justify-item-center" src="<?php echo  $guide['photo'];?>" alt="">
@@ -47,13 +45,14 @@ $dates3 = show_guides_article($_GET['id']);
                                 echo "性別 : ".$guide['sex']."<br><br>"
                                 ."出生日期 : ".substr($guide['birthday'],0,10) ."<br><br>"
                                 ."電話號碼 : ".$guide['phone'] ."<br><br>"
+                                ."身分證 : ".$guide['id_card'] ."<br><br>"
                                 ."電子郵件 : ".$guide['email'] ."<br><br>"
                                 ;
                             ?>
                         </h5>
                         <h4 class="text-muted ">應徵動機</h4>
                         <h5 class="card p-2">
-                               <?php echo $guide_audit['motive'] ;?>
+                               <?php echo $guide['motive'] ;?>
                         </h5>           
                     
                     
@@ -63,7 +62,7 @@ $dates3 = show_guides_article($_GET['id']);
                             
                               
                                 
-                                <img class="img-fluit h-75" width="500" src="<?php echo $guide_audit['license'] ;?>" alt="此位導遊沒放證照"></td>
+                                <img class="img-fluit h-75" width="500" src="<?php echo $guide['license'] ;?>" alt="此位導遊沒放證照"></td>
                                
                             
                     </div>
@@ -88,31 +87,32 @@ $dates3 = show_guides_article($_GET['id']);
             
                 <div class="card-body ">
                     <div class="row">
-                        <?php if(!empty($dates3))
-                        foreach($dates3 as $article):
+                        <?php if(!empty($dates1))
+                        foreach($dates1 as $article):
                                 if(!empty($article['image'])){?>
                                 <div class="col-sm-6 mt-2">
-                                    <div class="card ">
                                         <div class="card-header bg-white text-center"><h4><?php echo $article['image_title']?></h4></div>
                                         <img class="img-fluit w-100" width="" src="<?php echo $article['image']?>" alt="">
-                                        <h5><?php echo $article['image_content']?></h5>
-                                    </div> 
-                                </div><?php }?>
+                                </div>
+                                <div class="col-sm-6 mt-sm-5">
+                                    <h5><?php echo $article['image_content']?></h5>
+                                </div>
+                                <?php }?>
 
                                 <?php if(!empty($article['video'])){?>
-                                <div class="col-sm-6 mt-2">
-                                    <div class="card">
-                                        <div class="card-header bg-white text-center"><h4><?php echo $article['video_title']?></h4></div>
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe class="embed-responsive-item" src="<?php echo $article['video']?>" allowfullscreen></iframe>
-                                        </div>
-                                        <h5><?php echo $article['video_content']?></h5>
+                                <div class="col-sm-6">
+                                    <div class="card-header bg-white text-center"><h4><?php echo $article['video_title']?></h4></div>
+                                    <h5><?php echo $article['video_content']?></h5>
+                                </div>
+                                <div class="col-sm-6 mt-sm-5">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <?php echo $article['video']?>
                                     </div> 
                                 </div><?php }?>
                             
                         <?php endforeach?>
                      </div>
-                     <form method ="post" action="php/pass_or_nopass.php?id=<?php echo $_GET['id']?>">
+                     <form method ="post" action="php/pass_or_nopass.php?user_id=<?php echo $_GET['user_id']?>">
                     <div class="mt-5 row d-flex justify-content-around">
                     <button type="submit" name="check" value="pass" class="btn btn-success pull-right">審核通過</button>
                     <button type="submit" name="check" value="nopass" class="btn btn-danger pull-left">審核不通過</button>

@@ -4,7 +4,7 @@ date_default_timezone_set("Asia/Taipei");
 function get_guides()
 {
     $data =array();
-    $sql = "SELECT * FROM `guides`" ;
+    $sql = "SELECT * FROM `guides` inner join `users` on `guides`.`user_id`  = `users`.`id`" ;
 
     $query = mysqli_query($_SESSION['link'],$sql);
 
@@ -57,7 +57,7 @@ function get_pass0()
 function get_pass1()
 {
     $pass =array();
-    $sql = "SELECT * FROM `guides`  where `pass` = 1 "  ;
+    $sql = "SELECT * FROM `guides` inner join `users` on `guides`.`user_id`  = `users`.`id` where`guides`.`pass`=1 "  ;
 
     $query = mysqli_query($_SESSION['link'],$sql);
 
@@ -82,7 +82,7 @@ function get_pass1()
 function get_pass1or2()
 {
     $pass =array();
-    $sql = "SELECT * FROM `guides`  where `pass` = 1 or `pass` = 2"  ;
+    $sql = "SELECT * FROM `guides`   inner join `users` on `guides`.`user_id`  = `users`.`id` where `pass` = 1 or `pass` = 2"  ;
 
     $query = mysqli_query($_SESSION['link'],$sql);
 
@@ -128,7 +128,7 @@ function show_guides($id)
     }
     return $guides ;
 }
-
+/*
 function show_guides_audit($id)
     {
     $guides =array();
@@ -182,13 +182,13 @@ function show_guides_audit($id)
     }
     return $guides ;
     }
-
+*/
     
 
 function pass0to1($id)
 {
     $guides =array();
-    $sql = "update `guides` set `pass` = 1 , `updated_at` = now() where `id` = $id"  ;
+    $sql = "update `guides` set `pass` = 1 , `updated_at` = now() where `user_id` = $id"  ;
 
     $query = mysqli_query($_SESSION['link'],$sql);
 

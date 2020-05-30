@@ -69,6 +69,7 @@ require_once 'php/sql.php';
                         </div>                                               
                 </div>
             </div>
+            
             <div class="col-12  col-sm-6 col-lg-3 ">
                 <div class="card ">
                         <div class="card-body d-flex  align-items-center">
@@ -82,6 +83,65 @@ require_once 'php/sql.php';
                         </div>                                               
                 </div>
             </div>
+            
+            <div class="col-12  col-sm-6 col-lg-3 mt-2">
+                <div class="card ">
+                        <div class="card-body d-flex  align-items-center">
+                            <img src="pic/money.png" width="60"  class ="img-fluid mr-3 h-75 " alt="">
+                                 <div class="text-center w-100"> 
+                                    <h5><b>年度營收</b></h5>
+                                    <h2><?php if($date4['travels_order_total']==null) echo 0;
+                                    else echo $date4['travels_order_total'] ?>
+                                    </h2>
+                                </div>
+                        </div>                                               
+                </div>
+            </div>
+
+            <div class="col-12  col-sm-6 col-lg-3 mt-2">
+                <div class="card ">
+                        <div class="card-body d-flex  align-items-center">
+                            <img src="pic/member.png" width="60"  class ="img-fluid mr-3 h-75 " alt="">
+                                 <div class="text-center w-100"> 
+                                    <h5><b>1</b></h5>
+                                    <h2><?php if($date4['travels_order_total']==null) echo 0;
+                                    else echo $date4['travels_order_total'] ?>
+                                    </h2>
+                                </div>
+                        </div>                                               
+                </div>
+            </div>
+
+            <div class="col-12  col-sm-6 col-lg-3 mt-2">
+                <div class="card ">
+                        <div class="card-body d-flex  align-items-center">
+                            <img src="pic/guide.png" width="60"  class ="img-fluid mr-3 h-75 " alt="">
+                                 <div class="text-center w-100"> 
+                                    <h5><b>2</b></h5>
+                                    <h2><?php if($date4['travels_order_total']==null) echo 0;
+                                    else echo $date4['travels_order_total'] ?>
+                                    </h2>
+                                </div>
+                        </div>                                               
+                </div>
+            </div>
+            
+            <div class="col-12  col-sm-6 col-lg-3 mt-2">
+                <div class="card ">
+                        <div class="card-body d-flex  align-items-center">
+                            <img src="pic/order.png" width="60"  class ="img-fluid mr-3 h-75 " alt="">
+                                 <div class="text-center w-100"> 
+                                    <h5><b>所有訂單數</b></h5>
+                                    <h2><?php if($date4['travels_order_total']==null) echo 0;
+                                    else echo $date4['travels_order_total'] ?>
+                                    </h2>
+                                </div>
+                        </div>                                               
+                </div>
+            </div>
+        
+            
+
         </div>
 
         <div class="card mt-5">
@@ -169,7 +229,7 @@ require_once 'php/sql.php';
 
 <script type="text/javascript">
     $(document).ready(function () {
-
+$(selector).text(textString);
         $('#month a').click(function (e) { 
             var i = $(this).text();
             //$(location).attr('href',"?paytime="+i);
